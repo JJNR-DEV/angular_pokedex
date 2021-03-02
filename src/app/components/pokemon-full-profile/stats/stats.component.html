@@ -1,0 +1,14 @@
+<div class="statistics-graph">
+    <div *ngFor="let stat of stats" class="stat-description">
+
+        <div class="stat-values">
+            <span [class]="'stat-name ' + pokemonColor + '-font'">{{ stat.stat.name }}</span>
+            <span class="stat-val">{{ threeDigitStat(stat.base_stat) }}</span>
+        </div>
+
+        <div class="full-stat-bar">
+            <div [class]="pokemonColor +  ' stat-bar'" [style.width.%]="100 / 200 * stat.base_stat"></div>
+        </div>
+
+    </div>
+</div>

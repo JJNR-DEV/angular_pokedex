@@ -1,0 +1,30 @@
+<a [routerLink]="['/profile', pokemon.name]">
+    <div class="pokemon-list-item">
+        <div class="pokemon-profile">
+            <img 
+                [src]=avatarImg 
+                [alt]="pokemon.name + ' avatar'"  
+                width="75px" 
+                height="75px" />
+
+            <div class="nameId">
+                <strong>
+                    {{ pokemon.name }}
+                </strong>
+        
+                <span class="pokemon-id">
+                    #{{ pokemonId }}
+                </span>
+            </div>
+        </div>
+
+        <div class="pokemon-type">
+            <app-pokemon-type 
+                *ngFor="let type of pokemonTypes"
+                [type]="type"
+                [tagsIcons]="typeIcon"
+                >
+            </app-pokemon-type>
+        </div>
+    </div>
+</a>

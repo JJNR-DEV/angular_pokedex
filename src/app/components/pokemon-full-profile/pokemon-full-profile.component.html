@@ -1,0 +1,27 @@
+<main [class]="profileColor">
+    <header class="component">
+        <a routerLink="">
+            <fa-icon [icon]="faChevronCircleLeft"></fa-icon>
+        </a>
+    </header>
+    
+    <img [src]="avatarImg" [alt]="pokemonName + ' image'" />
+
+    <div class="all-info">
+        <h1>{{ pokemonName }}</h1>
+
+        <div class="tags-area">
+            <app-pokemon-type 
+                *ngFor="let type of pokemonTypes"
+                [type]="type"
+                [tagsIcons]="typeIcon"
+                >
+            </app-pokemon-type>
+        </div>
+
+        <p>{{ pokemonDesc }}</p>
+
+        <app-stats [stats]="pokemonStats" [pokemonColor]="profileColor">
+        </app-stats>
+    </div>
+</main>

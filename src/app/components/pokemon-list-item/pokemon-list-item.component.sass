@@ -1,0 +1,43 @@
+a
+    text-decoration: none
+    color: #000
+    
+.pokemon-list-item
+    display: flex
+    align-items: center
+    border-bottom: 1px solid #E3E3E3
+    padding: 10px 15px
+    justify-content: space-between
+
+    .pokemon-profile
+        text-align: center
+        align-items: center
+        display: flex
+
+        .nameId
+            display: flex
+            flex-direction: column
+            text-align: left
+            padding-left: 20px
+
+            strong
+                text-transform: capitalize
+
+            .pokemon-id
+                color: #A4A4A4
+
+    .pokemon-type
+        display: flex
+        flex-direction: row
+        align-items: center
+
+@media (max-width: 640px)
+    .pokemon-list-item
+        padding: 10px
+
+        .pokemon-profile
+            img
+                max-width: 75px
+
+            .nameId
+                font-size: 0.8rem
