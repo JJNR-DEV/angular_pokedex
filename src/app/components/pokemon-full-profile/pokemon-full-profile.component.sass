@@ -1,22 +1,4 @@
-$steel: #5596A4
-$rock: #CEC18C
-$psychic: #F87C7A
-$poison: #B563CE
-$normal: #9A9DA1
-$ice: #7ED4C9
-$ground: #D78555
-$grass: #5DBE62
-$ghost: #6970C5
-$flying: #9BB4E8
-$fire: #F8A54F
-$fight: #D94256
-$fairy: #EF97E6
-$electric: #EDD53F
-$dragon: #0773C7
-$dark: #5F606D
-$bug: #9DC130
-$water: #559EDF
-
+@import "../../../styling/base"
 
 main
     text-align: center
@@ -48,6 +30,25 @@ main
             padding: 15px
             font-size: 0.9rem
 
+        .profile-options
+            padding: 5px 0 20px
+
+            .sleep
+                border: none
+                background-color: #fff
+            
+            .current
+                border: none
+                border-radius: 20px
+                color: #fff
+
+            button
+                padding: 10px 20px
+                font-size: 0.7rem
+
+                &:focus
+                    outline: none
+
 @media(max-width: 640px)
 
     main
@@ -56,93 +57,3 @@ main
 
         h1
             font-size: 1.5rem
-
-.steel
-    background-color: $steel
-.steel-font
-    color: $steel
-
-.rock
-    background-color: $rock
-.rock-font
-    color: $rock
-
-.psychic
-    background-color: $psychic
-.psychic-font
-    color: $psychic
-
-.poison
-    background-color: $poison
-.poison-font
-    color: $poison
-
-.normal
-    background-color: $normal
-.normal-font
-    color: $normal
-
-.ice
-    background-color: $ice
-.ice-font
-    color: $ice
-
-.ground
-    background-color: $ground
-.ground-font
-    color: $ground
-
-.grass
-    background-color: $grass
-.grass-font
-    color: $grass
-
-.ghost
-    background-color: $ghost
-.ghost-font
-    color: $ghost
-
-.flying
-    background-color: $flying
-.flying-font
-    color: $flying
-
-.fire
-    background-color: $fire
-.fire-font
-    color: $fire
-
-.fight
-    background-color: $fight
-.fight-font
-    color: $fight
-
-.fairy
-    background-color: $fairy
-.fairy-font
-    color: $fairy
-
-.electric
-    background-color: $electric
-.electric-font
-    color: $electric
-
-.dragon
-    background-color: $dragon
-.dragon-font
-    color: $dragon
-
-.dark
-    background-color: $dark
-.dark-font
-    color: $dark
-
-.bug
-    background-color: $bug
-.bug-font
-    color: $bug
-
-.water
-    background-color: $water
-.water-font
-    color: $water

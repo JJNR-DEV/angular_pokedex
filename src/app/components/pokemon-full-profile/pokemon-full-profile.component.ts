@@ -19,6 +19,7 @@ export class PokemonFullProfileComponent implements OnInit {
   avatarImg: string;
   pokemonDesc: string;
   profileColor: string;
+  pokemonID: number;
 
   pokemonTypes: string[];
   // Shape for Pokemon type
@@ -32,6 +33,7 @@ export class PokemonFullProfileComponent implements OnInit {
 
     // Get all data about pokemon
     this.dataHandler.pokemonData(this.pokemonName).subscribe((data: any) => {
+      this.pokemonID = data.id;
 
       // Avatar img
       this.avatarImg = data.sprites.other.dream_world.front_default;
@@ -61,11 +63,37 @@ export class PokemonFullProfileComponent implements OnInit {
       if(desc.version.name === 'ruby') {
         // Edit the name to be only first letter capital
         const name = this.pokemonName.charAt(0).toUpperCase() + this.pokemonName.slice(1);
-        const textEdited = desc.flavor_text.replace(desc.flavor_text.split(" ")[0], name);
+        let textEdited = desc.flavor_text.replace(desc.flavor_text.split(" ")[0], name);
+        textEdited = textEdited.replace('POKéMON', 'pokémon')
 
         this.pokemonDesc = textEdited;
       } 
     }));
   };
 
+  showStats: boolean = true;
+  showEvolution: boolean = false;
+  showMoves: boolean = false;
+
+  childDisplay(child) {
+    console.log('child display')
+    console.log(child)
+    switch(child) {
+      case 'evolution':
+        this.showEvolution = true;
+        this.showMoves = false;
+        this.showStats = false;
+        break;
+      case 'moves':
+        this.showMoves = true;
+        this.showEvolution = false;
+        this.showStats = false;
+        break;
+      default:
+        this.showStats = true;
+        this.showMoves = false;
+        this.showEvolution = false;
+    }
+  }
+  
 }

@@ -23,19 +23,8 @@ export class PokemonListItemComponent implements OnInit {
   constructor(private getDetails: PokemonItemService) { }
   
   ngOnInit(): void {
-    this.getDetails.pokemonData(this.pokemon.name).subscribe((data: any) => {
-
-      // Pokemon ID
-      this.defineId(data.id);
-
-      // Property for svg avatar
-      this.avatarImg = data.sprites.other.dream_world.front_default;
-
-      // Pokemon types
-      this.pokemonTypes = data.types.map(t => t.type.name);
-    });
+    this.getDetails.pokemonData(this.pokemon.name).subscribe(this.dataReady.bind(this))
   }
-
 
   defineId(id: number) {
     const stringID = id.toString();
@@ -47,5 +36,21 @@ export class PokemonListItemComponent implements OnInit {
     } else {
       this.pokemonId = stringID;
     }
+  }
+
+  dataReady(data: any) {
+    // Pokemon ID
+    this.defineId(data.id);
+
+    // Property for svg avatar
+    this.avatarImg = data.sprites.other.dream_world.front_default;
+
+    // Pokemon types
+    this.pokemonTypes = data.types.map(t => t.type.name);
+  }
+
+  onImgLoad(e)  {
+    // When image is ready display the whole container
+    e.path[2].style="display: flex"
   }
 }

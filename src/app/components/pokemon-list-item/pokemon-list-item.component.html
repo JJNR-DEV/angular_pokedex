@@ -1,11 +1,12 @@
 <a [routerLink]="['/profile', pokemon.name]">
-    <div class="pokemon-list-item">
+    <div class="pokemon-list-item" style="display: none">
         <div class="pokemon-profile">
             <img 
                 [src]=avatarImg 
                 [alt]="pokemon.name + ' avatar'"  
                 width="75px" 
-                height="75px" />
+                height="75px" 
+                (load)="onImgLoad($event)"  />
 
             <div class="nameId">
                 <strong>

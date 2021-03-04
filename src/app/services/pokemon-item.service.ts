@@ -29,6 +29,10 @@ export class PokemonItemService {
 
   pokemonCharacteristics(id: number) {
     const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
-    return this.http.get(url)
+    return this.http.get(url);
+  }
+
+  pokemonEvolution(url: string) {
+    return this.http.get(url);
   }
 }

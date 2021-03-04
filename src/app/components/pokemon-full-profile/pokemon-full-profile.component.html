@@ -21,7 +21,37 @@
 
         <p>{{ pokemonDesc }}</p>
 
-        <app-stats [stats]="pokemonStats" [pokemonColor]="profileColor">
+        <div class="profile-options">
+            <button 
+                [class]="showStats ? 'current ' : 'sleep ' + profileColor + '-font'" 
+                (click)="childDisplay('stats')">
+                STATS
+            </button>
+
+            <button 
+                [class]="showEvolution ? 'current ' : 'sleep ' + profileColor + '-font'" 
+                (click)="childDisplay('evolution')">
+                EVOLUTIONS
+            </button>
+
+            <button 
+                [class]="showMoves ? 'current ' : 'sleep ' + profileColor + '-font'" 
+                (click)="childDisplay('moves')">
+                MOVES
+            </button>
+        </div>
+
+        <app-stats 
+            [ngStyle]="{ 'display': showStats ? 'inline' : 'none' }" 
+            [stats]="pokemonStats" 
+            [pokemonColor]="profileColor">
         </app-stats>
+
+        <app-evolution
+            [ngStyle]="{ 'display': showEvolution ? 'inline' : 'none' }"
+            [pokemonID]="pokemonID"
+            [pokemonColor]="profileColor">
+        </app-evolution>
+
     </div>
 </main>

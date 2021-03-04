@@ -10,6 +10,8 @@ import { PokemonTypeComponent } from './components/pokemon-type/pokemon-type.com
 import { PokemonFullProfileComponent } from './components/pokemon-full-profile/pokemon-full-profile.component';
 import { StatsComponent } from './components/pokemon-full-profile/stats/stats.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EvolutionComponent } from './components/pokemon-full-profile/evolution/evolution.component';
+import { EvolutionPhaseViewComponent } from './components/pokemon-full-profile/evolution/evolution-phase-view/evolution-phase-view.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PokemonListItemComponent,
     PokemonTypeComponent,
     PokemonFullProfileComponent,
-    StatsComponent
+    StatsComponent,
+    EvolutionComponent,
+    EvolutionPhaseViewComponent
   ],
   imports: [
     BrowserModule,

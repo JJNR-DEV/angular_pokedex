@@ -1,0 +1,16 @@
+<div class="phase">
+    <div class="phase-before">
+        <img [src]="phaseBeforeImg" [alt]="phase[0].name + ' avatar'" />
+        <p>{{ phase[0].name }}</p>
+    </div>
+
+    <div [class]="'phase-level ' + pokemonColor + '-font'">
+        <span>Lv. {{ phase[1].min_level }}</span>
+        <img src="../../../../../assets/transition/arrow-right.svg" alt="arrow right establishing next phase" />
+    </div>
+
+    <div class="phase-after">
+        <img [src]="phaseAfterImg" [alt]="phase[1].name + ' avatar'" />
+        <p>{{ phase[1].name }}</p>
+    </div>
+</div>
