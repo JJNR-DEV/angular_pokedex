@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { element } from 'protractor';
 
 import { PokemonItemService } from '../../services/pokemon-item.service';
+import { PokemonStorage } from '../../services/pokemon-storage.service';
 
 @Component({
   selector: 'app-pokemon-list-item',
@@ -13,6 +15,10 @@ export class PokemonListItemComponent implements OnInit {
     url: string
   };
 
+  @Input() userScrollPosition: number;
+
+  @Input() tabindex: number;
+
   avatarImg: string;
   pokemonId: string;
 
@@ -20,7 +26,11 @@ export class PokemonListItemComponent implements OnInit {
   // Shape for Pokemon type
   typeIcon: string = 'icons';
   
-  constructor(private getDetails: PokemonItemService) { }
+  constructor(private getDetails: PokemonItemService, private pokemonStorage: PokemonStorage) { }
+
+  setLastClicked() {
+    this.pokemonStorage.setLastPokemonClicked(this.tabindex);
+  }
   
   ngOnInit(): void {
     this.getDetails.pokemonData(this.pokemon.name).subscribe(this.dataReady.bind(this))
@@ -51,6 +61,13 @@ export class PokemonListItemComponent implements OnInit {
 
   onImgLoad(e)  {
     // When image is ready display the whole container
-    e.path[2].style="display: flex"
+    if(e.path === undefined && e.composedPath){
+      const elements = e.composedPath();
+      elements[2].style="display: flex";
+    } else {
+      e.path[2].style="display: flex";
+    }
+
+    this.pokemonStorage.pokemonRendered();
   }
 }

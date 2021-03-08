@@ -1,12 +1,15 @@
 <div class="list">
     <h1>Pokédex</h1>
-    <app-pokemon-list-item 
-        *ngFor="let pokemon of pokemons$|async"
+    <app-pokemon-list-item
+        *ngFor="let pokemon of pokemons$|async; index as i"
         [pokemon]="pokemon"
+        [userScrollPosition]="scrollPosition"
+        [tabindex]="i"
+        #pokeItem
         >
     </app-pokemon-list-item>
 
-    <div *ngIf="loading">
+    <div class="loading-img" *ngIf="loading">
         <img src="../../../assets/transition/pokeball.gif" />
     </div>
 </div>

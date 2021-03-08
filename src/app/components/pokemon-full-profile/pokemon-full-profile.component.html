@@ -1,13 +1,18 @@
 <main [class]="profileColor">
     <header class="component">
-        <a routerLink="">
-            <fa-icon [icon]="faChevronCircleLeft"></fa-icon>
-        </a>
+        
+            <fa-icon (click)="goBack()" [icon]="faChevronCircleLeft"></fa-icon>
+        
     </header>
+
     
     <img [src]="avatarImg" [alt]="pokemonName + ' image'" />
 
-    <div class="all-info">
+    <div *ngIf="isLoading">
+        <img src="../../../assets/transition/pokeball.gif" />
+    </div>
+
+    <div class="all-info"  *ngIf="isLoading === false">
         <h1>{{ pokemonName }}</h1>
 
         <div class="tags-area">

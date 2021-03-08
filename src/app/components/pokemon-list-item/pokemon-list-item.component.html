@@ -1,5 +1,5 @@
 <a [routerLink]="['/profile', pokemon.name]">
-    <div class="pokemon-list-item" style="display: none">
+    <div class="pokemon-list-item" style="display: none" (click)="setLastClicked()">
         <div class="pokemon-profile">
             <img 
                 [src]=avatarImg 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons'
 
 import { PokemonItemService } from '../../services/pokemon-item.service';
+import { PokemonStorage } from '../../services/pokemon-storage.service';
 
 @Component({
   selector: 'app-pokemon-full-profile',
@@ -10,7 +12,14 @@ import { PokemonItemService } from '../../services/pokemon-item.service';
   styleUrls: ['./pokemon-full-profile.component.sass']
 })
 export class PokemonFullProfileComponent implements OnInit {
-  constructor( private route: ActivatedRoute, private dataHandler: PokemonItemService ){ }
+  constructor( 
+    private route: ActivatedRoute, 
+    private dataHandler: PokemonItemService ,
+    private location: Location,
+    private pokemonStorage: PokemonStorage
+  ){ 
+    this.pokemonStorage.resetPokemonRendered()
+  }
 
   // Font Awesome Icon
   faChevronCircleLeft = faChevronCircleLeft;
@@ -20,6 +29,7 @@ export class PokemonFullProfileComponent implements OnInit {
   pokemonDesc: string;
   profileColor: string;
   pokemonID: number;
+  isLoading: boolean = true;
 
   pokemonTypes: string[];
   // Shape for Pokemon type
@@ -68,6 +78,9 @@ export class PokemonFullProfileComponent implements OnInit {
 
         this.pokemonDesc = textEdited;
       } 
+
+      // Data has been fetch
+      this.isLoading = false;
     }));
   };
 
@@ -94,6 +107,10 @@ export class PokemonFullProfileComponent implements OnInit {
         this.showMoves = false;
         this.showEvolution = false;
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
   
 }
