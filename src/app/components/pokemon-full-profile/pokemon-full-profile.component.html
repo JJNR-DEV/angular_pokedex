@@ -15,7 +15,7 @@
         <div class="tags-area">
             <app-pokemon-type 
                 *ngFor="let type of pokemonTypes"
-                [type]="type"
+                [type]="type.name"
                 [tagsIcons]="typeIcon"
                 >
             </app-pokemon-type>
@@ -46,7 +46,9 @@
         <app-stats 
             [ngStyle]="{ 'display': showStats ? 'inline' : 'none' }" 
             [stats]="pokemonStats" 
-            [pokemonColor]="profileColor">
+            [pokemonColor]="profileColor"
+            [pokemonAbilities]="pokemonAbilities"
+            [types]="pokemonTypes">
         </app-stats>
 
         <app-evolution

@@ -13,6 +13,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EvolutionComponent } from './components/pokemon-full-profile/evolution/evolution.component';
 import { EvolutionPhaseViewComponent } from './components/pokemon-full-profile/evolution/evolution-phase-view/evolution-phase-view.component';
 import { MovesComponent } from './components/pokemon-full-profile/moves/moves.component';
+import { WeaknessesComponent } from './components/pokemon-full-profile/stats/weaknesses/weaknesses.component';
+import { AbilitiesComponent } from './components/pokemon-full-profile/stats/abilities/abilities.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MovesComponent } from './components/pokemon-full-profile/moves/moves.co
     StatsComponent,
     EvolutionComponent,
     EvolutionPhaseViewComponent,
-    MovesComponent
+    MovesComponent,
+    WeaknessesComponent,
+    AbilitiesComponent
   ],
   imports: [
     BrowserModule,

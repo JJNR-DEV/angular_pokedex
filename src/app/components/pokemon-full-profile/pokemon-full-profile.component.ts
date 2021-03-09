@@ -31,13 +31,13 @@ export class PokemonFullProfileComponent implements OnInit {
   pokemonID: number;
   isLoading: boolean = true;
 
-  pokemonTypes: string[];
+  pokemonTypes = [];
   // Shape for Pokemon type
   typeIcon: string = 'tags';
 
   pokemonStats: object[];
-
   pokemonMoves: object[];
+  pokemonAbilities: object[];
 
   ngOnInit(): void {
     // Collect pokemon name from params
@@ -54,16 +54,19 @@ export class PokemonFullProfileComponent implements OnInit {
       this.getDescription(data.id);
 
       // Types
-      this.pokemonTypes = data.types.map(t => t.type.name);
+      this.pokemonTypes = data.types.map(t => t.type);
 
       // Profile Colour
-      this.profileColor = this.pokemonTypes[0];
+      this.profileColor = this.pokemonTypes[0].name;
 
       // Stats
       this.pokemonStats = data.stats;
 
       // Moves
       this.pokemonMoves = data.moves;
+
+      // Abilities
+      this.pokemonAbilities = data.abilities;
     });
   };
 
