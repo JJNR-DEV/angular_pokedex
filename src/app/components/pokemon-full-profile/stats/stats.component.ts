@@ -1,24 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.sass', '../pokemon-full-profile.component.sass']
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent {
   @Input() stats: object[];
   @Input() pokemonColor: string;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
   ngOnChanges() {
-    if(this.pokemonColor) {
-      console.log(this.pokemonColor);
-    }
-
     if(this.stats) {
       this.stats.map(
         (stat: {

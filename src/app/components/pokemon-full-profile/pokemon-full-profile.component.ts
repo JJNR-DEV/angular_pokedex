@@ -37,6 +37,8 @@ export class PokemonFullProfileComponent implements OnInit {
 
   pokemonStats: object[];
 
+  pokemonMoves: object[];
+
   ngOnInit(): void {
     // Collect pokemon name from params
     this.route.params.subscribe(p => this.pokemonName = p['name']);
@@ -59,10 +61,14 @@ export class PokemonFullProfileComponent implements OnInit {
 
       // Stats
       this.pokemonStats = data.stats;
+
+      // Moves
+      this.pokemonMoves = data.moves;
     });
   };
 
   getDescription(id: number) {
+    // The description I found with more characteristics
     this.dataHandler.pokemonCharacteristics(id).subscribe((details: any) => details.flavor_text_entries.filter(
       (desc: {
         flavor_text: string,
@@ -89,8 +95,6 @@ export class PokemonFullProfileComponent implements OnInit {
   showMoves: boolean = false;
 
   childDisplay(child) {
-    console.log('child display')
-    console.log(child)
     switch(child) {
       case 'evolution':
         this.showEvolution = true;

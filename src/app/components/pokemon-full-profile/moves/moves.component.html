@@ -1,0 +1,9 @@
+<div class="move" *ngFor="let move of movesInfo">
+    <p>{{ move.name }}</p>
+
+    <app-pokemon-type
+        [type]="move.type"
+        tagsIcons="icons"
+        >
+    </app-pokemon-type>
+</div>

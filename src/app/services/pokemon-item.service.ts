@@ -32,7 +32,7 @@ export class PokemonItemService {
     return this.http.get(url);
   }
 
-  pokemonEvolution(url: string) {
+  fetchPokemonSpecInfo(url: string) {
     return this.http.get(url);
   }
 }

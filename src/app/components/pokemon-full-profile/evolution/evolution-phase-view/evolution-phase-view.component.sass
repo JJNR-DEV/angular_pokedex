@@ -12,12 +12,19 @@
 
     img
         max-width: 75px
+        max-height: 100px
 
     .phase-level
         display: flex
         flex-direction: column
         position: relative
-        bottom: 15px
+        bottom: 20px
+        font-size: 2rem
 
-    p
-        color: #666
+@media(max-width: 640px)
+    .phase
+        margin: 0 15px
+        padding: 10px 0
+
+        p, span
+            font-size: 0.8rem

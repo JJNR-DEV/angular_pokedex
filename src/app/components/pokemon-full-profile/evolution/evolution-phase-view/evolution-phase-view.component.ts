@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 import { PokemonItemService } from '../../../../services/pokemon-item.service';
 
@@ -13,6 +14,8 @@ export class EvolutionPhaseViewComponent implements OnInit {
 
   phaseBeforeImg: string;
   phaseAfterImg: string;
+
+  faAngleRight = faAngleRight;
 
   constructor(private http: PokemonItemService) { }
 

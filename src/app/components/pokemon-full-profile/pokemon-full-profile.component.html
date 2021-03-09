@@ -1,14 +1,11 @@
 <main [class]="profileColor">
     <header class="component">
-        
-            <fa-icon (click)="goBack()" [icon]="faChevronCircleLeft"></fa-icon>
-        
+        <fa-icon (click)="goBack()" [icon]="faChevronCircleLeft"></fa-icon>
     </header>
-
     
     <img [src]="avatarImg" [alt]="pokemonName + ' image'" />
 
-    <div *ngIf="isLoading">
+    <div class="all-info" *ngIf="isLoading">
         <img src="../../../assets/transition/pokeball.gif" />
     </div>
 
@@ -57,6 +54,13 @@
             [pokemonID]="pokemonID"
             [pokemonColor]="profileColor">
         </app-evolution>
+
+        <app-moves
+            [ngStyle]="{ 'display': showMoves ? 'inline' : 'none' }"
+            [moves]="pokemonMoves"
+            [pokemonColor]="profileColor">
+        >
+        </app-moves>
 
     </div>
 </main>

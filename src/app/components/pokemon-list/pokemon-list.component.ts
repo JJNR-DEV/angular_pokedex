@@ -39,6 +39,9 @@ export class PokemonListComponent implements AfterViewInit {
             behavior: "smooth",
             block: "center"
           });
+
+          // After scrolling into view clear the scrolling
+          this.pokemonStorage.resetPokemonRendered();
         }
       })
     }
