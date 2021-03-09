@@ -8,6 +8,8 @@ import { Component, Input } from '@angular/core';
 export class StatsComponent {
   @Input() stats: object[];
   @Input() pokemonColor: string;
+  @Input() types: object[];
+  @Input() pokemonAbilities: object[];
 
   constructor() { }
 
