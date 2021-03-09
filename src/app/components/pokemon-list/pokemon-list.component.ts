@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { fromEvent, BehaviorSubject, merge } from 'rxjs';
-import { map, filter, debounceTime, distinct, mergeMap, tap } from 'rxjs/operators';
+import { map, filter, debounceTime, distinct, mergeMap, tap, switchMap, concatMap } from 'rxjs/operators';
 
 import { PokemonItemService } from '../../services/pokemon-item.service';
 import { PokemonStorage } from '../../services/pokemon-storage.service';
@@ -20,19 +20,20 @@ export class PokemonListComponent implements AfterViewInit {
 
   itemHeight: number = 75;
   numberOfPokemons: number = 20;
+
   fetchesMade = this.pokemonStorage.getFetchesMade()
   pageByManual$ = new BehaviorSubject(this.fetchesMade);
-  loading: boolean = false;
-  scrollPosition: number = 0;
-
   counter: number = this.fetchesMade;
 
+  loading: boolean = false;
 
+  // When user returns from Profile page
   ngAfterViewInit() {
     const view = this.pokemonStorage.viewLastPokemonClicked();
 
     if(view > 0) {
       this.pokemonStorage.totalPokemonsRendered.subscribe(val => {
+        // Scroll to last pokemon clicked
         if(val === this.pokemonStorage.pokemonList.length) {
           this.pokeItem.get(view).nativeElement.scrollIntoView({
             behavior: "smooth",
@@ -46,11 +47,6 @@ export class PokemonListComponent implements AfterViewInit {
   private pageByScroll$ = fromEvent(window, "scroll")
     .pipe(
       map(() => window.scrollY),
-      tap(position => {
-        if(position % 1 === 0) {
-          this.scrollPosition = position
-        }
-      }),
       // User got to the bottom of the page
       filter(current => current >=  document.body.clientHeight - window.innerHeight),
       tap(() => this.loading = true),
@@ -70,6 +66,7 @@ export class PokemonListComponent implements AfterViewInit {
       })
     );
 
+  // Checks all items emitted by Observable and return the distinct value
   private pageToLoad$ = merge(this.pageByManual$, this.pageByScroll$)
     .pipe(
       distinct()
@@ -77,7 +74,7 @@ export class PokemonListComponent implements AfterViewInit {
   
   pokemons$ = this.pageToLoad$
     .pipe(
-      mergeMap((page: number) => {
+      concatMap((page: number) => {
         const existingList = this.pokemonStorage.getPokemonList();
 
         if(existingList.length !== 0 && page === this.fetchesMade) {
