@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { nextTick } from 'process';
 
 import { PokemonItemService } from '../../../../services/pokemon-item.service';
 
@@ -16,53 +15,23 @@ export class WeaknessesComponent implements OnInit {
 
   constructor(private http: PokemonItemService) { }
 
-  /*
-(data: any) => {
-
-        data.damage_relations.double_damage_from.map((damage: {
-          name: string
-        }) => this.doubleDamage = [...this.doubleDamage, damage.name]);
-
-        data.damage_relations.half_damage_from.map((damage: {
-          name: string
-        }) => {
-          console.log(damage.name);
-          if(this.doubleDamage.find(d => damage.name === d)) {
-            console.log('here')
-            return;
-          } else {
-            console.log('TThere')
-            this.halfDamage = [...this.halfDamage, damage.name];
-          }
-        });
-
-      }
-  */
-
   ngOnInit(): void {
+    const observable = {
+      next(data, counterArray) {
+        return data.filter(({ name }: {
+          name: string
+        }) => counterArray.includes(name) === false);
+      }
+    };
 
+    // So there are no duplicate between double damage and half
+    // If it exists in both then it should be only displayed in double damage
     this.types.map((type: any) => {
       this.http.fetchPokemonSpecInfo(type.url).subscribe((data: any) => {
-
-        data.damage_relations.double_damage_from.map((damage: {
-          name: string
-        }) => this.doubleDamage = [...this.doubleDamage, damage.name]);
-
-        data.damage_relations.half_damage_from.map((damage: {
-          name: string
-        }) => {
-          if(this.doubleDamage.find(d => damage.name === d)) {
-            console.log('here')
-            return;
-          } else {
-            console.log('TThere')
-            this.halfDamage = [...this.halfDamage, damage.name];
-          }
-        });
-
+        this.doubleDamage = [...observable.next(data.damage_relations.double_damage_from, this.doubleDamage)];
+        this.halfDamage = [...observable.next(data.damage_relations.half_damage_from, this.doubleDamage)];
       });
     });
-
-  }
+  };
 
 }

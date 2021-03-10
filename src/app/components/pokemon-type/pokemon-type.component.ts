@@ -5,10 +5,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: './pokemon-type.component.html',
   styleUrls: ['./pokemon-type.component.sass']
 })
-export class PokemonTypeComponent {
+export class PokemonTypeComponent{
   @Input() type: string;
   @Input() tagsIcons: 'tags' | 'icons';
 
   constructor() { }
-
 }

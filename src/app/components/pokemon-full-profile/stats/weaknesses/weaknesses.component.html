@@ -5,7 +5,7 @@
 
         <div *ngFor="let damage of doubleDamage">
             <app-pokemon-type
-                [type]="damage"
+                [type]="damage.name"
                 tagsIcons="icons"
                 >
             </app-pokemon-type>
@@ -14,7 +14,7 @@
     
         <div *ngFor="let damage of halfDamage">
             <app-pokemon-type
-                [type]="damage"
+                [type]="damage.name"
                 tagsIcons="icons"
                 >
             </app-pokemon-type>

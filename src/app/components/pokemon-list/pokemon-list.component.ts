@@ -86,7 +86,8 @@ export class PokemonListComponent implements AfterViewInit {
           return this.createList(page);
         } 
       }),
-      map(newList => newList)
+      map(newList => newList),
+      tap(() => this.loading = false)
     );
 
   createList(page) {
