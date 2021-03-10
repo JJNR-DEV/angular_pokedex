@@ -1,5 +1,7 @@
 # AngularPokedex
 
+Pokedex app inspired by design from Daniel Motta. API from https://pokeapi.co/ and re-adjustments inspired by https://www.pokemon.com/pokedex/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
 
 ## Development server
