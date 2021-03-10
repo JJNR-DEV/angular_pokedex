@@ -12,10 +12,34 @@ export class PokemonItemService {
 
   constructor(private http: HttpClient) { }
 
+  pokemonNames = [];
+  pokemonNameMatches = [];
+
   getAllPokemons(): Observable<AppPokemonsAPI> {
     const url = 'https://pokeapi.co/api/v2/pokemon/';
 
     return this.http.get<AppPokemonsAPI>(url);
+  }
+
+  getAllPokemonNames() {
+    const url = 'https://pokeapi.co/api/v2/pokemon/?limit=';
+    
+    this.getAllPokemons().subscribe(data => {
+      this.getPokemonsNextPage(`${url}${data.count}`).subscribe(res => {
+        this.pokemonNames = [...this.pokemonNames, res.results];
+      })
+    });
+  }
+
+  lookThroughPokemonNames(name) {
+    console.log(name);
+    this.pokemonNameMatches = [];
+
+    this.pokemonNames[0].filter(pokemons => {
+      if(pokemons.name.includes(name)) {
+        this.pokemonNameMatches = [...this.pokemonNameMatches, pokemons.name];
+      }
+    })
   }
 
   getPokemonsNextPage(url): Observable<AppPokemonsAPI> {

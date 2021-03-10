@@ -1,5 +1,9 @@
-<div class="list">
-    <h1>Pokédex</h1>
+<main class="list">
+    <header>
+        <h1>Pokédex</h1>
+        <app-search></app-search>
+    </header>
+
     <app-pokemon-list-item
         *ngFor="let pokemon of pokemons$|async; index as i"
         [pokemon]="pokemon"
@@ -12,4 +16,4 @@
     <div class="loading-img" *ngIf="loading">
         <img src="../../../assets/transition/pokeball.gif" />
     </div>
-</div>
+</main>

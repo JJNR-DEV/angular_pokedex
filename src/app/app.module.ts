@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { EvolutionPhaseViewComponent } from './components/pokemon-full-profile/e
 import { MovesComponent } from './components/pokemon-full-profile/moves/moves.component';
 import { WeaknessesComponent } from './components/pokemon-full-profile/stats/weaknesses/weaknesses.component';
 import { AbilitiesComponent } from './components/pokemon-full-profile/stats/abilities/abilities.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +30,15 @@ import { AbilitiesComponent } from './components/pokemon-full-profile/stats/abil
     EvolutionPhaseViewComponent,
     MovesComponent,
     WeaknessesComponent,
-    AbilitiesComponent
+    AbilitiesComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
