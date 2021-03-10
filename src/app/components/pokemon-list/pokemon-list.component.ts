@@ -39,6 +39,9 @@ export class PokemonListComponent implements AfterViewInit {
             behavior: "smooth",
             block: "center"
           });
+
+          // After scrolling into view clear the scrolling
+          this.pokemonStorage.resetPokemonRendered();
         }
       })
     }
@@ -83,7 +86,8 @@ export class PokemonListComponent implements AfterViewInit {
           return this.createList(page);
         } 
       }),
-      map(newList => newList)
+      map(newList => newList),
+      tap(() => this.loading = false)
     );
 
   createList(page) {

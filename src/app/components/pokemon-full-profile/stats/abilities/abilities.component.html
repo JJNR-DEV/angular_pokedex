@@ -1,0 +1,7 @@
+<div class="abilities">
+    <h2>Abilities</h2>
+    <div *ngFor="let ability of abilityEntries" class="ability-details">
+        <span [class]="'title ' + pokemonColor + '-font'">{{ ability.name }}</span>
+        <p>{{ ability.description }}</p>
+    </div>
+</div>

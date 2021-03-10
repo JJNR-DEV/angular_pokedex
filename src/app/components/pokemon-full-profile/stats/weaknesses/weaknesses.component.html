@@ -1,0 +1,25 @@
+<div class="weaknesses">
+    <h2>Weaknesses</h2>
+
+    <div class="all-weaknesses">
+
+        <div *ngFor="let damage of doubleDamage">
+            <app-pokemon-type
+                [type]="damage.name"
+                tagsIcons="icons"
+                >
+            </app-pokemon-type>
+             2x
+        </div>
+    
+        <div *ngFor="let damage of halfDamage">
+            <app-pokemon-type
+                [type]="damage.name"
+                tagsIcons="icons"
+                >
+            </app-pokemon-type>
+              1x
+        </div>
+
+    </div>
+</div>

@@ -24,7 +24,7 @@ export class EvolutionComponent implements OnInit {
           url: string
         }
       }) => {
-        this.http.pokemonEvolution(data.evolution_chain.url).subscribe((data: any) => {
+        this.http.fetchPokemonSpecInfo(data.evolution_chain.url).subscribe((data: any) => {
           let phaseBefore = data.chain.species;
           let nextEvolution = data.chain.evolves_to.find(pokemon => pokemon.evolves_to);
 
@@ -34,20 +34,29 @@ export class EvolutionComponent implements OnInit {
             nextEvolution = nextEvolution.evolves_to[0];
           }
 
+          // Hitmonchan was the example used for this case
+          // When in the API the evolves_to prop is empty
+          // Yet the other stages of evolution are present in the primary evolves_to prop
+          if(nextEvolution === undefined && data.chain.evolves_to.length > 1) {
+            for(let i = 0; i < data.chain.evolves_to.length - 1; i++) {
+              this.addPhase(data.chain.evolves_to[i].species, data.chain.evolves_to[i + 1]);
+            }
+          }
+
         })
       });
     }
   }
 
   allPhases(phase) {
-    this.evolutionPhase = [...this.evolutionPhase, phase]
+    this.evolutionPhase = [...this.evolutionPhase, phase];
   }
 
   addPhase(phaseBefore, nextPhase) {
     const phaseAfter = {
-      ...nextPhase.species,
-      min_level: nextPhase.evolution_details[0].min_level
-    }
+      ...nextPhase.species
+    };
+
     this.allPhases([ phaseBefore, phaseAfter ]);
   }
 
