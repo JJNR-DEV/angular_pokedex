@@ -1,0 +1,17 @@
+<div class="search-option">
+    <form (ngSubmit)="onSubmit($event)">
+        <input 
+            type="text" 
+            name="pokemon-search"
+            placeholder="Search" 
+            autocomplete="off"
+            [ngModel]="userInput"
+            (ngModelChange)="userInputFn($event)" />
+    </form>
+
+    <div class="search-results" [style.display]="displayMatches">
+        <a *ngFor="let match of matches" [routerLink]="['/profile', match]">
+            <span>{{ match }}</span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.search-option
+    text-align: center
+    margin: 0 0 20px
+    display: flex
+    flex-direction: column
+
+    input 
+        border-radius: 10px
+        border: 1px solid rgb(0 0 0 / 10%)
+        background-color: rgb(0 0 0 / 10%)
+        padding: 5px 10px
+        width: 70%
+        height: 16px
+
+        &:focus
+            outline: none
+            border: 1px solid rgb(0 0 0 / 30%)
+
+    .search-results
+        flex-direction: column
+        margin: 27.5px 0
+        text-align: left
+        position: absolute
+        border: 1px solid rgb(0 0 0 / 30%)
+        background-color: #fff
+        left: 14%
+        right: 14%
+        z-index: 10
+        max-height: 40vh
+        overflow-y: scroll
+
+        a
+            padding: 10px
+            margin: 0
+            text-transform: capitalize
+            text-decoration: none
+            color: #000
+
+            &:hover
+                background-color: #e5e5e5
+                cursor: pointer
+                
