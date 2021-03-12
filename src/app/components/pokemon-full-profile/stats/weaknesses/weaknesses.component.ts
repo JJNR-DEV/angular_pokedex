@@ -27,7 +27,7 @@ export class WeaknessesComponent implements OnInit {
     // So there are no duplicate between double damage and half
     // If it exists in both then it should be only displayed in double damage
     this.types.map((type: any) => {
-      this.http.fetchPokemonSpecInfo(type.url).subscribe((data: any) => {
+      this.http._fetchPokemonSpecInfo(type.url).subscribe((data: any) => {
         this.doubleDamage = [...observable.next(data.damage_relations.double_damage_from, this.doubleDamage)];
         this.halfDamage = [...observable.next(data.damage_relations.half_damage_from, this.doubleDamage)];
       });

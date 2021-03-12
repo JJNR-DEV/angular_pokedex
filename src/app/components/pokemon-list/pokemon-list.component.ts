@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { fromEvent, BehaviorSubject, merge } from 'rxjs';
-import { map, filter, debounceTime, distinct, mergeMap, tap, switchMap, concatMap } from 'rxjs/operators';
+import { map, filter, debounceTime, distinct, tap, concatMap, scan, mergeMap, distinctUntilChanged } from 'rxjs/operators';
 
 import { PokemonItemService } from '../../services/pokemon-item.service';
 import { PokemonStorage } from '../../services/pokemon-storage.service';
@@ -21,7 +21,7 @@ export class PokemonListComponent implements AfterViewInit {
   itemHeight: number = 75;
   numberOfPokemons: number = 20;
 
-  fetchesMade = this.pokemonStorage.getFetchesMade()
+  fetchesMade = this.pokemonStorage.getFetchesToMake()
   pageByManual$ = new BehaviorSubject(this.fetchesMade);
   counter: number = this.fetchesMade;
 
@@ -33,15 +33,13 @@ export class PokemonListComponent implements AfterViewInit {
 
     if(view > 0) {
       this.pokemonStorage.totalPokemonsRendered.subscribe(val => {
-        // Scroll to last pokemon clicked
+        // If the whole list up until the last point as been loaded
         if(val === this.pokemonStorage.pokemonList.length) {
+          // Scroll to last clicked pokemon
           this.pokeItem.get(view).nativeElement.scrollIntoView({
             behavior: "smooth",
             block: "center"
           });
-
-          // After scrolling into view clear the scrolling
-          this.pokemonStorage.resetPokemonRendered();
         }
       })
     }
@@ -74,36 +72,35 @@ export class PokemonListComponent implements AfterViewInit {
     .pipe(
       distinct()
     );
-  
-  pokemons$ = this.pageToLoad$
+
+
+  pokemons$ = merge(this.pageToLoad$, this.getPokemons.onListReady$)
     .pipe(
-      concatMap((page: number) => {
-        const existingList = this.pokemonStorage.getPokemonList();
-
-        if(existingList.length !== 0 && page === this.fetchesMade) {
-          return [this.handleExistingList()];
-        } else {
-          return this.createList(page);
-        } 
+      tap(res => {
+        if(typeof res === 'number'){
+          this.pokemonStorage.setFetchesToMake(res)
+        }
       }),
-      map(newList => newList),
+      mergeMap(() => {
+        if(this.getPokemons.listReady$.value === false && this.pokemonStorage.getPokemonList().length === 0) {
+          return [];
+        } else if(this.pokemonStorage.getPokemonList().length === this.pokemonStorage.getFetchesToMake() * 20) {
+          return [this.addPokemonsToList(this.getPokemons.pokemons.value)];
+        } else {
+          return [this.pokemonStorage.getPokemonList()];
+        }
+      }),
       tap(() => this.loading = false)
-    );
+    ); 
 
-  createList(page) {
-    return this.getPokemons.getPokemonsNextPage(`https://pokeapi.co/api/v2/pokemon/?offset=${page * 20}&limit=${this.numberOfPokemons}`)
-      .pipe(
-        map((res: any) => res.results),
-        map(pokemons => {
-          pokemons.map(pokemon => this.pokemonStorage.setPokemonList(pokemon));
-          return this.pokemonStorage.getPokemonList();
-        }),
-        tap(() => this.pokemonStorage.setFetchesMade(page))
-      )
-  }
+  addPokemonsToList(data) {
+    let indexStart = this.pokemonStorage.getFetchesToMake() * this.numberOfPokemons;
+    const counter = indexStart + this.numberOfPokemons;
 
-  handleExistingList() {
+    for(indexStart; indexStart < counter; indexStart++) {
+      this.pokemonStorage.setPokemonList(data[indexStart]);
+    }
+
     return this.pokemonStorage.getPokemonList();
   }
-
 }

@@ -11,10 +11,9 @@ export class PokemonStorage {
     constructor() { }
 
     pokemonList: object[] = [];
-    fecthesMade: number = 0;
+    fecthesToMake: number = 0;
     cache = [];
     totalPokemonsRendered = new BehaviorSubject(0);
-
 
     setPokemonList(list) {
         this.pokemonList = [...this.pokemonList, list];
@@ -24,12 +23,12 @@ export class PokemonStorage {
         return this.pokemonList;
     }
 
-    setFetchesMade(page) {
-        this.fecthesMade = page;
+    setFetchesToMake(page) {
+        this.fecthesToMake = page;
     }
 
-    getFetchesMade() {
-        return this.fecthesMade;
+    getFetchesToMake() {
+        return this.fecthesToMake;
     }
 
 
@@ -43,11 +42,11 @@ export class PokemonStorage {
         return this.scrollPosition;
     }
 
-    pokemonRendered() {
+    pokemonsRendered() {
         this.totalPokemonsRendered.next(this.totalPokemonsRendered.getValue() + 1);
     }
 
-    resetPokemonRendered() {
+    resetPokemonsRendered() {
         this.totalPokemonsRendered.next(0);
     }
 }

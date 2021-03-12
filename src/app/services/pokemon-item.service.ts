@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, merge } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
+import { memoize } from './memoize';
 
 import { AppPokemonsAPI } from '../models/AllPokemonsAPI';
 
@@ -10,10 +12,29 @@ import { AppPokemonsAPI } from '../models/AllPokemonsAPI';
 
 export class PokemonItemService {
 
-  constructor(private http: HttpClient) { }
+  // Memoize Functions
+  _pokemonData: (name: string) => any;
+  _pokemonCharacteristics: (id: number) => any;
+  _fetchPokemonSpecInfo: (url: string) => any;
 
-  pokemonNames = [];
+  constructor(private http: HttpClient) { 
+    this._pokemonData = memoize(this.pokemonData.bind(this));
+    this._pokemonCharacteristics = memoize(this.pokemonCharacteristics.bind(this));
+    this._fetchPokemonSpecInfo = memoize(this.fetchPokemonSpecInfo.bind(this));
+  }
+
+  pokemons = new BehaviorSubject([]);
   pokemonNameMatches = [];
+  numberOfPokemons: number = 20;
+
+  listReady$ = new BehaviorSubject(false);
+
+  // When all pokemons have been fetched
+  onListReady$ = merge(this.pokemons)
+    .pipe(
+      filter(data => data.length > 0),
+      tap(() => this.listReady$.next(true))
+    )
 
   getAllPokemons(): Observable<AppPokemonsAPI> {
     const url = 'https://pokeapi.co/api/v2/pokemon/';
@@ -25,24 +46,25 @@ export class PokemonItemService {
     const url = 'https://pokeapi.co/api/v2/pokemon/?limit=';
     
     this.getAllPokemons().subscribe(data => {
-      this.getPokemonsNextPage(`${url}${data.count}`).subscribe(res => {
-        this.pokemonNames = [...this.pokemonNames, res.results];
+      this.getPokemonsFromUrl(`${url}${data.count}`).subscribe(res => {
+        this.pokemons.next(res.results);
       })
     });
   }
 
   lookThroughPokemonNames(name) {
-    console.log(name);
     this.pokemonNameMatches = [];
 
-    this.pokemonNames[0].filter(pokemons => {
-      if(pokemons.name.includes(name)) {
+    this.pokemons.value.filter(pokemons => {
+      if(pokemons.name.includes(name) && !pokemons.name.includes('-')) {
+        console.log(pokemons)
         this.pokemonNameMatches = [...this.pokemonNameMatches, pokemons.name];
       }
     })
   }
 
-  getPokemonsNextPage(url): Observable<AppPokemonsAPI> {
+  // Only used in this file
+  getPokemonsFromUrl(url: string): Observable<AppPokemonsAPI> {
     return this.http.get<AppPokemonsAPI>(url);
   }
 
