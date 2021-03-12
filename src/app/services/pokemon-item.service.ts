@@ -55,8 +55,9 @@ export class PokemonItemService {
   lookThroughPokemonNames(name) {
     this.pokemonNameMatches = [];
 
-    this.pokemons[0].filter(pokemons => {
-      if(pokemons.name.includes(name)) {
+    this.pokemons.value.filter(pokemons => {
+      if(pokemons.name.includes(name) && !pokemons.name.includes('-')) {
+        console.log(pokemons)
         this.pokemonNameMatches = [...this.pokemonNameMatches, pokemons.name];
       }
     })
