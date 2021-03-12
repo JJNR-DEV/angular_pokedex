@@ -18,7 +18,7 @@ export class PokemonFullProfileComponent implements OnInit {
     private location: Location,
     private pokemonStorage: PokemonStorage
   ){ 
-    this.pokemonStorage.resetPokemonRendered()
+    this.pokemonStorage.resetPokemonsRendered()
   }
 
   // Font Awesome Icon
@@ -44,7 +44,7 @@ export class PokemonFullProfileComponent implements OnInit {
     this.route.params.subscribe(p => this.pokemonName = p['name']);
 
     // Get all data about pokemon
-    this.dataHandler.pokemonData(this.pokemonName).subscribe((data: any) => {
+    this.dataHandler._pokemonData(this.pokemonName).subscribe((data: any) => {
       this.pokemonID = data.id;
 
       // Avatar img
@@ -72,7 +72,7 @@ export class PokemonFullProfileComponent implements OnInit {
 
   getDescription(id: number) {
     // The description I found with more characteristics
-    this.dataHandler.pokemonCharacteristics(id).subscribe((details: any) => details.flavor_text_entries.filter(
+    this.dataHandler._pokemonCharacteristics(id).subscribe((details: any) => details.flavor_text_entries.filter(
       (desc: {
         flavor_text: string,
         version: {

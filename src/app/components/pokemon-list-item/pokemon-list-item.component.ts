@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { element } from 'protractor';
 
 import { PokemonItemService } from '../../services/pokemon-item.service';
 import { PokemonStorage } from '../../services/pokemon-storage.service';
@@ -26,15 +25,17 @@ export class PokemonListItemComponent implements OnInit {
   // Shape for Pokemon type
   typeIcon: string = 'icons';
   
-  constructor(private getDetails: PokemonItemService, private pokemonStorage: PokemonStorage) { }
+  constructor(
+    private getDetails: PokemonItemService, 
+    private pokemonStorage: PokemonStorage) { }
 
   setLastClicked() {
     this.pokemonStorage.setLastPokemonClicked(this.tabindex);
-  }
+  };
   
   ngOnInit(): void {
-    this.getDetails.pokemonData(this.pokemon.name).subscribe(this.dataReady.bind(this))
-  }
+    this.getDetails._pokemonData(this.pokemon.name).subscribe(this.dataReady.bind(this))
+  };
 
   defineId(id: number) {
     const stringID = id.toString();
@@ -68,6 +69,6 @@ export class PokemonListItemComponent implements OnInit {
       e.path[2].style="display: flex";
     }
 
-    this.pokemonStorage.pokemonRendered();
+    this.pokemonStorage.pokemonsRendered();
   }
 }

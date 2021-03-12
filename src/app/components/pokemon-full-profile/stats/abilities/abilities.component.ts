@@ -16,7 +16,7 @@ export class AbilitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemonAbilities.map(ability => {
-      this.http.fetchPokemonSpecInfo(ability.ability.url).subscribe((data: any) => {
+      this.http._fetchPokemonSpecInfo(ability.ability.url).subscribe((data: any) => {
         const t = data.effect_entries.filter(entry => entry.language.name === 'en');
 
         this.abilityEntries = [

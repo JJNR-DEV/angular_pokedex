@@ -19,12 +19,12 @@ export class EvolutionComponent implements OnInit {
   
   ngOnChanges() {
     if(this.pokemonID) {
-      this.http.pokemonCharacteristics(this.pokemonID).subscribe((data: {
+      this.http._pokemonCharacteristics(this.pokemonID).subscribe((data: {
         evolution_chain: {
           url: string
         }
       }) => {
-        this.http.fetchPokemonSpecInfo(data.evolution_chain.url).subscribe((data: any) => {
+        this.http._fetchPokemonSpecInfo(data.evolution_chain.url).subscribe((data: any) => {
           let phaseBefore = data.chain.species;
           let nextEvolution = data.chain.evolves_to.find(pokemon => pokemon.evolves_to);
 

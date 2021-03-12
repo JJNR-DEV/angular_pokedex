@@ -24,7 +24,7 @@ export class MovesComponent {
           url: string
         }
       }) => {
-        this.http.fetchPokemonSpecInfo(move.move.url).subscribe((data: {
+        this.http._fetchPokemonSpecInfo(move.move.url).subscribe((data: {
           type: {
             name: string
           }
