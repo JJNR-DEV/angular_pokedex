@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { fromEvent, merge } from 'rxjs';
-import { map, filter, debounceTime, distinct, tap, mergeMap, pluck } from 'rxjs/operators';
+import { map, filter, debounceTime, distinct, tap, mergeMap } from 'rxjs/operators';
 
 import { PokemonItemService } from '../../services/pokemon-item.service';
 import { PokemonStorage } from '../../services/pokemon-storage.service';
