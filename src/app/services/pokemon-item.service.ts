@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, merge } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { memoize } from './memoize';
 
@@ -17,7 +17,7 @@ export class PokemonItemService {
   _pokemonCharacteristics: (id: number) => any;
   _fetchPokemonSpecInfo: (url: string) => any;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this._pokemonData = memoize(this.pokemonData.bind(this));
     this._pokemonCharacteristics = memoize(this.pokemonCharacteristics.bind(this));
     this._fetchPokemonSpecInfo = memoize(this.fetchPokemonSpecInfo.bind(this));
@@ -30,7 +30,7 @@ export class PokemonItemService {
   listReady$ = new BehaviorSubject(false);
 
   // When all pokemons have been fetched
-  onListReady$ = merge(this.pokemons)
+  onListReady$ = this.pokemons
     .pipe(
       filter(data => data.length > 0),
       tap(() => this.listReady$.next(true))
@@ -44,7 +44,7 @@ export class PokemonItemService {
 
   getAllPokemonNames() {
     const url = 'https://pokeapi.co/api/v2/pokemon/?limit=';
-    
+
     this.getAllPokemons().subscribe(data => {
       this.getPokemonsFromUrl(`${url}${data.count}`).subscribe(res => {
         this.pokemons.next(res.results);

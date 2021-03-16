@@ -38,7 +38,7 @@ import { SearchComponent } from './components/search/search.component';
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
